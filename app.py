@@ -11,7 +11,8 @@ api = Api(app)
 def home():
     return '<p>Hello World!!!</p>'
 
-api.add_resource(Order, '/order/<int:order_id>')
+api.add_resource(Order, '/order/')
+# api.add_resource(Order, '/order/<int:order_id>')
 
 if __name__ == '__main__':
     from db import db
