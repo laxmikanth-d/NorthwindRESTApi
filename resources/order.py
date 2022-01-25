@@ -9,4 +9,5 @@ class Order(Resource):
     #     return order.json()
 
     def get(self, order_id):
+        order = Orders.query.filter_by(order_id=10251).first()
         return {'hello': order_id}
