@@ -1,4 +1,6 @@
 # python==3.9.0
-Flask-RESTful==0.3.9
-Flask-SQLAlchemy==2.5.1
-psycopg2-binary==2.9.3
+Flask
+Flask-RESTful
+Flask-SQLAlchemy
+uwsgi
+psycopg2
