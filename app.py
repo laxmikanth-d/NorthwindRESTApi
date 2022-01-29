@@ -4,11 +4,14 @@ from resources.order import Order
 from db import db
 
 app = Flask(__name__)
+
+app.config['DEBUG'] = True
+
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:password@localhost/northwind'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://lax:paS$123word@localhost/northwind'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['PROPAGATE_EXCEPTIONS'] = True
-
+app.secret_key = 'lax'
 api = Api(app)
 
 @app.route('/')
@@ -18,5 +21,8 @@ def home():
 api.add_resource(Order, '/order/<string:order_id>')
 
 if __name__ == '__main__':
+
+    from db import db
     db.init_app(app)
-    app.run(port=5000, debug=True)
+
+    app.run(port=5000)
