@@ -1,5 +1,3 @@
-from json import dumps
-from turtle import st
 from db import db
 
 class Orders(db.Model):

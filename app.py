@@ -8,7 +8,7 @@ app = Flask(__name__)
 app.config['DEBUG'] = True
 
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:password@localhost/northwind'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://lax:paS$123word@localhost/northwind'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://lax:password@localhost/northwind'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['PROPAGATE_EXCEPTIONS'] = True
 app.secret_key = 'lax'
