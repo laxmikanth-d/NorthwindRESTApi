@@ -1,3 +1,4 @@
+from crypt import methods
 from flask import Flask
 from flask_restful import Api
 from resources.order import Order
@@ -18,7 +19,7 @@ api = Api(app)
 def home():
     return '<p>Hello World!!!</p>'
 
-api.add_resource(Order, '/order/<string:order_id>')
+api.add_resource(Order, '/order/<int:order_id>')
 
 if __name__ == '__main__':
 
