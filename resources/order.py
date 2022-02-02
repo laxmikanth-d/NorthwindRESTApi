@@ -1,6 +1,9 @@
 from datetime import datetime
 from flask_restful import Resource, reqparse
 from models.Orders import Orders
+from flask_jwt_extended import (
+    jwt_required
+)
 
 class Order(Resource):
 
@@ -71,6 +74,7 @@ class Order(Resource):
         required=False,
         help="ship_country")
 
+    @jwt_required()
     def get(self, order_id):
         order = Orders.query.filter_by(order_id=order_id).first()
 
@@ -79,6 +83,7 @@ class Order(Resource):
         else:
             return {'customer_id': 'Customer not found.'}
     
+    @jwt_required()
     def put(self, order_id):
 
         data = Order.parser.parse_args()
@@ -89,9 +94,7 @@ class Order(Resource):
             order = Orders(order_id, **data)
         else:
             if data['customer_id']:      
-                order.customer_id = data['customer_id']
-            else:
-                print('customer_id not found')
+                order.customer_id = data['customer_id']            
             if data['employee_id']:          
                 order.employee_id = data['employee_id']
             if data['order_date']:

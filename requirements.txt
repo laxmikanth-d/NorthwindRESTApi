@@ -1,6 +1,8 @@
 # python==3.9.0
 Flask
 Flask-RESTful
+# Flask-RESTPlus
 Flask-SQLAlchemy
+Flask-JWT-Extended
 uwsgi
 psycopg2

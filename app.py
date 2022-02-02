@@ -1,8 +1,9 @@
-from crypt import methods
 from flask import Flask
 from flask_restful import Api
 from resources.order import Order
+from resources.login import Login
 from db import db
+from flask_jwt_extended import JWTManager
 
 app = Flask(__name__)
 
@@ -15,11 +16,14 @@ app.config['PROPAGATE_EXCEPTIONS'] = True
 app.secret_key = 'lax'
 api = Api(app)
 
+jwt = JWTManager(app)
+
 @app.route('/')
 def home():
     return '<p>Hello World!!!</p>'
 
 api.add_resource(Order, '/order/<int:order_id>')
+api.add_resource(Login, '/login/')
 
 if __name__ == '__main__':
 
