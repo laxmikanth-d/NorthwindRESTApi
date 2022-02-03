@@ -7,7 +7,6 @@ from resources.refresh import Refresh
 from db import db
 from flask_jwt_extended import JWTManager
 
-from resources.refresh import Refresh
 
 app = Flask(__name__)
 
@@ -18,6 +17,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://lax:password@localhost/nor
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['PROPAGATE_EXCEPTIONS'] = True
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(seconds=30)
+app.config['JWT_REFRESH_TOKEN_EXPIRES'] = timedelta(seconds=10)
 
 app.secret_key = 'lax'
 api = Api(app)
