@@ -39,8 +39,9 @@ class Order(Resource):
 
     parser.add_argument("ship_country", type=str, required=False, help="ship_country")
 
+    @classmethod
     @jwt_required()
-    def get(self, order_id: int) -> Tuple:
+    def get(cls, order_id: int) -> Tuple:
         order = Orders.query.filter_by(order_id=order_id).first()
 
         if order:
@@ -48,8 +49,9 @@ class Order(Resource):
         else:
             return {"customer_id": NOT_FOUND.format("Customer Id")}
 
+    @classmethod
     @jwt_required()
-    def put(self, order_id: int) -> Dict:
+    def put(cls, order_id: int) -> Dict:
 
         data = Order.parser.parse_args()
 

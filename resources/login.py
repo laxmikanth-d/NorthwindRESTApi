@@ -20,7 +20,8 @@ class Login(Resource):
         "password", type=str, required=True, help=IS_REQUIRED.format("Password")
     )
 
-    def post(self) -> Tuple:
+    @classmethod
+    def post(cls) -> Tuple:
         data = Login.parser.parse_args()
 
         if data["username"] == data["password"]:

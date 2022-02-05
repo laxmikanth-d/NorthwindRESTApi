@@ -10,8 +10,9 @@ class Refresh(Resource):
 
     parser.add_argument("username", type=str, required=True)
 
+    @classmethod
     @jwt_required(refresh=True)
-    def post(self) -> Dict:
+    def post(cls) -> Dict:
         data = Refresh.parser.parse_args()
         access_token = create_access_token(data["username"])
         return jsonify(access_token=access_token)
