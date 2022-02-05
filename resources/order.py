@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import Dict, Tuple, Union
 from flask_restful import Resource, reqparse
 from models.Orders import Orders
 from flask_jwt_extended import (
@@ -75,7 +76,7 @@ class Order(Resource):
         help="ship_country")
 
     @jwt_required()
-    def get(self, order_id):
+    def get(self, order_id: int) -> Tuple:
         order = Orders.query.filter_by(order_id=order_id).first()
 
         if order:
@@ -84,7 +85,7 @@ class Order(Resource):
             return {'customer_id': 'Customer not found.'}
     
     @jwt_required()
-    def put(self, order_id):
+    def put(self, order_id: int) -> Dict:
 
         data = Order.parser.parse_args()
 

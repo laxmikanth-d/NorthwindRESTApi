@@ -1,4 +1,5 @@
 from importlib.resources import Resource
+from typing import Dict, Tuple
 from flask_restful import Resource, reqparse
 from flask_jwt_extended import (
     create_access_token,
@@ -21,7 +22,7 @@ class Login(Resource):
     help = 'Password is required.'
     )
 
-    def post(self):
+    def post(self) -> Tuple:
         data = Login.parser.parse_args()
 
         if data["username"] == data["password"]:

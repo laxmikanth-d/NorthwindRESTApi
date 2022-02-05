@@ -1,4 +1,8 @@
 from db import db
+from typing import Dict, Union
+from datetime import date
+
+OrdersJson = Dict[str, Union[int, str, float]]
 
 class Orders(db.Model):
     __tablename__ = 'orders'
@@ -18,10 +22,31 @@ class Orders(db.Model):
     ship_postal_code = db.Column(db.String(10), nullable=True)
     ship_country = db.Column(db.String(15), nullable=True)    
 
+
+    def __init__(self, order_id: int, customer_id: str, employee_id: int, order_date: date
+    , required_date: date, shipped_date: date, ship_via: int, freight: float, ship_name: str
+    , ship_address: str, ship_city: str, ship_region: str, ship_postal_code: str
+    , ship_country: str) -> None:
+        self.order_id = order_id,
+        self.customer_id = customer_id,
+        self.employee_id = employee_id,
+        self.order_date = order_date,
+        self.required_date = required_date,
+        self.shipped_date = shipped_date,
+        self.ship_via = ship_via,
+        self.freight = freight,
+        self.ship_name = ship_name,
+        self.ship_address = ship_address,
+        self.ship_city = ship_city,
+        self.ship_region = ship_region,
+        self.ship_postal_code = ship_postal_code,
+        self.ship_country = ship_country
+
+
     # def __repr__(self) -> str:
     #     return f'{self.order_id} -> {self.employee_id} -> {self.ship_name}'
 
-    def json(self):
+    def json(self) -> OrdersJson:
         return {
             'order_id': self.order_id,
             'customer_id': self.customer_id,
@@ -39,14 +64,17 @@ class Orders(db.Model):
             'ship_country': self.ship_country            
         }
 
+    # Make sure the "Orders" in return is in double quotes. 
+    # Because Orders definition is not available yet for Python interpretor.
+    # If you have return list of Orders, syntax will be List["Orders"]
     @classmethod
-    def find_by_orderid(cls, order_id):
+    def find_by_orderid(cls, order_id: int) -> "Orders":
         return cls.query.filter_by(order_id = order_id).first()
 
-    def save_to_db(self):
+    def save_to_db(self) -> None:
         db.session.add(self)
         db.session.commit()
 
-    def delete_from_db(self):
+    def delete_from_db(self) -> None:
         db.session.delete(self)
         db.session.commit()
