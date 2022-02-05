@@ -4,6 +4,8 @@ from flask_restful import Resource, reqparse
 from models.Orders import Orders
 from flask_jwt_extended import jwt_required
 
+NOT_FOUND = "'{}' not found."
+
 
 class Order(Resource):
 
@@ -44,7 +46,7 @@ class Order(Resource):
         if order:
             return {"customer_id": order.customer_id}
         else:
-            return {"customer_id": "Customer not found."}
+            return {"customer_id": NOT_FOUND.format("Customer Id")}
 
     @jwt_required()
     def put(self, order_id: int) -> Dict:

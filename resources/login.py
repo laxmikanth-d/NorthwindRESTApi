@@ -4,16 +4,20 @@ from flask_restful import Resource, reqparse
 from flask_jwt_extended import create_access_token, create_refresh_token
 
 
+IS_REQUIRED = "'{}' is  required."
+INVALID_CREDENTIALS = "Invalid credentials"
+
+
 class Login(Resource):
 
     parser = reqparse.RequestParser()
 
     parser.add_argument(
-        "username", type=str, required=True, help="Username is required."
+        "username", type=str, required=True, help=IS_REQUIRED.format("Username")
     )
 
     parser.add_argument(
-        "password", type=str, required=True, help="Password is required."
+        "password", type=str, required=True, help=IS_REQUIRED.format("Password")
     )
 
     def post(self) -> Tuple:
@@ -26,5 +30,5 @@ class Login(Resource):
             return ({"access_token": access_token, "refresh_token": refresh_token},)
             200
 
-        return ({"message": "Invalid credentials"},)
+        return ({"message": INVALID_CREDENTIALS},)
         401
