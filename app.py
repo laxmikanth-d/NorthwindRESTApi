@@ -16,8 +16,8 @@ app.config["DEBUG"] = True
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://lax:password@localhost/northwind"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["PROPAGATE_EXCEPTIONS"] = True
-app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(seconds=30)
-app.config["JWT_REFRESH_TOKEN_EXPIRES"] = timedelta(seconds=10)
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(minutes=10)
+app.config["JWT_REFRESH_TOKEN_EXPIRES"] = timedelta(minutes=10)
 
 app.secret_key = "lax"
 api = Api(app)
@@ -28,7 +28,6 @@ jwt = JWTManager(app)
 @app.route("/")
 def home():
     return "<p>Hello World!!!</p>"
-
 
 api.add_resource(Order, "/order/<int:order_id>")
 api.add_resource(Login, "/login/")

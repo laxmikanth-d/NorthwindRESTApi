@@ -1,43 +1,16 @@
 from datetime import datetime
-from typing import Dict, Tuple, Union
-from flask_restful import Resource, reqparse
-from models.Orders import Orders
+from typing import Tuple
+from schemas.orders import OrdersSchema 
+from flask_restful import Resource
+from models.Orders import Orders, OrdersJson
 from flask_jwt_extended import jwt_required
+from flask import request
+from marshmallow import ValidationError
 
 NOT_FOUND = "'{}' not found."
 
 
 class Order(Resource):
-
-    parser = reqparse.RequestParser()
-
-    parser.add_argument("customer_id", type=str, required=False, help="customer_id")
-
-    parser.add_argument("employee_id", type=int, required=False, help="employee_id")
-
-    parser.add_argument("order_date", type=str, required=False, help="order_date")
-
-    parser.add_argument("required_date", type=str, required=False, help="required_date")
-
-    parser.add_argument("shipped_date", type=str, required=False, help="shipped_date")
-
-    parser.add_argument("ship_via", type=int, required=False, help="ship_via")
-
-    parser.add_argument("freight", type=float, required=False, help="freight")
-
-    parser.add_argument("ship_name", type=str, required=False, help="ship_name")
-
-    parser.add_argument("ship_address", type=str, required=False, help="ship_address")
-
-    parser.add_argument("ship_city", type=str, required=False, help="ship_city")
-
-    parser.add_argument("ship_region", type=str, required=False, help="ship_region")
-
-    parser.add_argument(
-        "ship_postal_code", type=str, required=False, help="ship_postal_code"
-    )
-
-    parser.add_argument("ship_country", type=str, required=False, help="ship_country")
 
     @classmethod
     @jwt_required()
@@ -51,9 +24,13 @@ class Order(Resource):
 
     @classmethod
     @jwt_required()
-    def put(cls, order_id: int) -> Dict:
+    def put(cls, order_id: int) -> OrdersJson:
+        orders_schema = OrdersSchema()
 
-        data = Order.parser.parse_args()
+        try:
+            data = orders_schema.load(request.get_json())
+        except ValidationError as err:
+            return err.messages, 400
 
         order = Orders.find_by_orderid(order_id)
 
