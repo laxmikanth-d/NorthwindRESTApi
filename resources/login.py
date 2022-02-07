@@ -1,7 +1,10 @@
 from importlib.resources import Resource
 from typing import Dict, Tuple
-from flask_restful import Resource, reqparse
+from flask import request
+from flask_restful import Resource
+from schemas import login
 from flask_jwt_extended import create_access_token, create_refresh_token
+from marshmallow import ValidationError
 
 
 IS_REQUIRED = "'{}' is  required."
@@ -9,20 +12,14 @@ INVALID_CREDENTIALS = "Invalid credentials"
 
 
 class Login(Resource):
-
-    parser = reqparse.RequestParser()
-
-    parser.add_argument(
-        "username", type=str, required=True, help=IS_REQUIRED.format("Username")
-    )
-
-    parser.add_argument(
-        "password", type=str, required=True, help=IS_REQUIRED.format("Password")
-    )
-
     @classmethod
     def post(cls) -> Tuple:
-        data = Login.parser.parse_args()
+        login_schema = login.LoginSchema()
+
+        try:
+            data = login_schema.load(request.get_json())
+        except ValidationError as err:
+            return err.messages, 400
 
         if data["username"] == data["password"]:
             access_token = create_access_token(data["username"], fresh=True)

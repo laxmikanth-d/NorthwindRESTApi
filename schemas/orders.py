@@ -1,5 +1,6 @@
 from marshmallow import Schema, fields
 
+
 class OrdersSchema(Schema):
     order_id = fields.Int()
     customer_id = fields.Str(required=True)

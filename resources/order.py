@@ -1,6 +1,6 @@
 from datetime import datetime
 from typing import Tuple
-from schemas.orders import OrdersSchema 
+from schemas.orders import OrdersSchema
 from flask_restful import Resource
 from models.Orders import Orders, OrdersJson
 from flask_jwt_extended import jwt_required
@@ -11,7 +11,6 @@ NOT_FOUND = "'{}' not found."
 
 
 class Order(Resource):
-
     @classmethod
     @jwt_required()
     def get(cls, order_id: int) -> Tuple:

@@ -29,6 +29,7 @@ jwt = JWTManager(app)
 def home():
     return "<p>Hello World!!!</p>"
 
+
 api.add_resource(Order, "/order/<int:order_id>")
 api.add_resource(Login, "/login/")
 api.add_resource(Refresh, "/refresh/")
