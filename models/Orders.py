@@ -1,6 +1,7 @@
-from db import db
-from typing import Dict, Union
 from datetime import date
+from typing import Dict, Union
+
+from db import db
 
 OrdersJson = Dict[str, Union[int, str, float]]
 

@@ -1,7 +1,9 @@
 from typing import Dict
+
 from flask import jsonify, request
+from flask_jwt_extended import create_access_token, jwt_required
 from flask_restful import Resource
-from flask_jwt_extended import jwt_required, create_access_token
+
 from schemas import refresh
 
 

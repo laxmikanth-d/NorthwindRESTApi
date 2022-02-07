@@ -1,12 +1,12 @@
 from datetime import timedelta
-from flask import Flask
-from flask_restful import Api
-from resources.order import Order
-from resources.login import Login
-from resources.refresh import Refresh
-from db import db
-from flask_jwt_extended import JWTManager
 
+from flask import Flask
+from flask_jwt_extended import JWTManager
+from flask_restful import Api
+
+from resources.login import Login
+from resources.order import Order
+from resources.refresh import Refresh
 
 app = Flask(__name__)
 

@@ -1,11 +1,13 @@
 from datetime import datetime
 from typing import Tuple
-from schemas.orders import OrdersSchema
-from flask_restful import Resource
-from models.Orders import Orders, OrdersJson
-from flask_jwt_extended import jwt_required
+
 from flask import request
+from flask_jwt_extended import jwt_required
+from flask_restful import Resource
 from marshmallow import ValidationError
+
+from models.Orders import Orders, OrdersJson
+from schemas.orders import OrdersSchema
 
 NOT_FOUND = "'{}' not found."
 

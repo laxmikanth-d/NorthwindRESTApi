@@ -1,11 +1,11 @@
-from importlib.resources import Resource
-from typing import Dict, Tuple
+from typing import Tuple
+
 from flask import request
-from flask_restful import Resource
-from schemas import login
 from flask_jwt_extended import create_access_token, create_refresh_token
+from flask_restful import Resource
 from marshmallow import ValidationError
 
+from schemas import login
 
 IS_REQUIRED = "'{}' is  required."
 INVALID_CREDENTIALS = "Invalid credentials"
