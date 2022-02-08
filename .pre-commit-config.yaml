@@ -8,6 +8,7 @@ repos:
     -   id: end-of-file-fixer
     -   id: check-yaml
     -   id: check-added-large-files
+        default_stages: [commit]
 -   repo: https://github.com/psf/black
     rev: 22.1.0
     hooks:
